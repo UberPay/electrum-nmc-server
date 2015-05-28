@@ -423,6 +423,12 @@ def get_address_from_output_script(bytes):
         addr = hash_160_to_script_address(decoded[1][1])
         return addr
 
+    # name new
+    match = [ opcodes.OP_NAME_NEW, opcodes.OP_PUSHDATA4, opcodes.OP_2DROP, opcodes.OP_DUP, opcodes.OP_HASH160, opcodes.OP_PUSHDATA4, opcodes.OP_EQUALVERIFY, opcodes.OP_CHECKSIG ]
+    if match_decoded(decoded, match):
+        addr = hash_160_to_pubkey_address(decoded[5][1])
+        return addr
+
     # name firstupdate
     match = [ opcodes.OP_NAME_FIRSTUPDATE, opcodes.OP_PUSHDATA4, opcodes.OP_PUSHDATA4, opcodes.OP_PUSHDATA4, opcodes.OP_2DROP, opcodes.OP_2DROP, opcodes.OP_DUP, opcodes.OP_HASH160, opcodes.OP_PUSHDATA4, opcodes.OP_EQUALVERIFY, opcodes.OP_CHECKSIG ]
     if match_decoded(decoded, match):
